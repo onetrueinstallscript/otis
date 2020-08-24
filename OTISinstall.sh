@@ -33,6 +33,7 @@ fi
 }
 
 partition $drive
+echo "Partitioning finished."
 
 # Format the partitions
 format() {
@@ -54,6 +55,7 @@ fi
 }
 
 format $drive
+echo "Formatting finished."
 
 # Mount the file systems
 mount() {
@@ -74,6 +76,7 @@ fi
 }
 
 mount $drive
+echo "Mounting finished."
 
 # Install essential packages
 pacstrap -i /mnt base linux linux-firmware
