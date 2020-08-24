@@ -64,7 +64,6 @@ if [ "$drivetype" == "UEFI" ]; then
 	mount $drive\1 /mnt/boot
 	mount $drive\4 /mnt/home
 elif [ "$drivetype" == "BIOS" ]; then
-	mkdir /mnt
 	mount $drive\1 /mnt
 	mkdir /mnt/home
 	mount $drive\3 /mnt/home
