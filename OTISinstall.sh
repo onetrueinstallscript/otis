@@ -9,67 +9,30 @@ lsblk
 echo ""
 echo "Drive to partition:"
 read drive
-echo "Drivetype (UEFI or BIOS):"
-read drivetype
 
-partition() {
-if [ $drivetype == "UEFI" ]; then
-	parted $drive mklabel gpt
-	parted $drive mkpart ESP fat32 1MiB 513MiB
-	parted $drive set 1 boot on
-	parted $drive mkpart primary ext4 513MiB 20GiB
-	parted $drive mkpart primary linux-swap 20GiB 24GiB
-	parted $drive mkpart primary ext4 24GiB 100%
-else
-	parted $drive mklabel msdos
-	parted $drive mkpart primary ext4 1MiB 20GiB
-	parted $drive set 1 boot on
-	parted $drive mkpart primary linux-swap 20GiB 24GiB
-	parted $drive mkpart primary ext4 24GiB 100%
-fi
-}
-
-partition $drive
+parted $drive mklabel msdos
+parted $drive mkpart primary ext4 1MiB 20GiB
+parted $drive set 1 boot on
+parted $drive mkpart primary linux-swap 20GiB 24GiB
+parted $drive mkpart primary ext4 24GiB 100%
 echo "Partitioning finished."
 
 # Format the partitions
-format() {
-if [ drivetype == "UEFI" ]; then
-	mkfs.vfat -F32 $drive\1
-	mkfs.ext4 -F $drive\2
-	mkfs.ext4 -F $drive\4
-	mkswap $drive\3
-	swapon $drive\3
-else
-	mkfs.ext4 -F $drive\1
-	mkswap $drive\2
-	swapon $drive\2
-	mkfs.ext4 -F $drive\3
-fi
-}
+mkfs.ext4 -F $drive\1
+mkswap $drive\2
+swapon $drive\2
+mkfs.ext4 -F $drive\3
 
-format $drive
 echo "Formatting finished."
 
 # Mount the file systems
-mount() {
-if [ $drivetype == "UEFI" ]; then
-	mount $drive\2 /mnt
-	mkdir /mnt/boot
-	mkdir /mnt/home
-	mount $drive\1 /mnt/boot
-	mount $drive\4 /mnt/home
-else
-	echo "Mounting /dev/sda1 to /mnt"
-	mount /dev/sda1 /mnt
-	echo "Creating directory /mnt/home"
-	mkdir /mnt/home
-	echo "Mounting /dev/sda3 to /mnt/home"
-	mount /dev/sda3 /mnt/home
-fi
-}
+echo "Mounting /dev/sda1 to /mnt"
+mount $drive\1 /mnt
+echo "Creating directory /mnt/home"
+mkdir /mnt/home
+echo "Mounting /dev/sda3 to /mnt/home"
+mount $drive\3 /mnt/home
 
-mount $drive
 echo "Mounting finished."
 
 # Install essential packages
