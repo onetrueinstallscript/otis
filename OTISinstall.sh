@@ -73,7 +73,7 @@ elif [ "$drivetype" == "BIOS" ]; then
 	echo "Mounting /dev/sda3 to /mnt/home"
 	mount $drive\3 /mnt/home
 else
-#	echo "Invalid option selected, please try again."
+	echo "Invalid option selected, please try again."
 #	mount $drive
 fi
 }
