@@ -61,11 +61,11 @@ if [ $drivetype == "UEFI" ]; then
 	mount $drive\4 /mnt/home
 else
 	echo "Mounting /dev/sda1 to /mnt"
-	mount $drive\1 /mnt
+	mount /dev/sda1 /mnt
 	echo "Creating directory /mnt/home"
 	mkdir /mnt/home
 	echo "Mounting /dev/sda3 to /mnt/home"
-	mount $drive\3 /mnt/home
+	mount /dev/sda3 /mnt/home
 fi
 }
 
