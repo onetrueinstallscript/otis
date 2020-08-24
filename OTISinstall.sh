@@ -67,6 +67,8 @@ if [ "$drivetype" == "UEFI" ]; then
 	mount $drive\4 /mnt/home
 elif [ "$drivetype" == "BIOS" ]; then
 	echo "Mounting /dev/sda1 to /mnt"
+	echo $drive
+	echo $drive\1
 	mount $drive\1 /mnt
 	echo "Creating directory /mnt/home"
 	mkdir /mnt/home
