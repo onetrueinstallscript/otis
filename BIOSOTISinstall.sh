@@ -28,11 +28,11 @@ mkfs.ext4 -F $drive\3
 # Mount the file systems
 
 echo "Mounting to /mnt (BIOS)"
-mount $drive\/1 /mnt
+mount $drive\1 /mnt
 echo "Creating /home directory on /mnt"
 mkdir /mnt/home
 echo "Mounting to /mnt/home"
-mount $drive\/3 /mnt/home
+mount $drive\3 /mnt/home
 
 # Install essential packages
 pacstrap -i /mnt base linux linux-firmware
