@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Set the time zone
 ln -sf /usr/share/zoneinfo/America/Kentucky/Louisville /etc/localtime
 hwclock --systohc --utc
@@ -16,7 +18,7 @@ echo "#<ip-address>	<hostname.domain.org>	<hostname>
 
 # Install and configure bootloader
 installBootloader() {
-if [ "$drivetype" == "UEFI" ]; then
+if [ $drivetype = "UEFI" ]; then
 	touch /boot/loader/entries/arch.conf
 	pacman -S dosfstools --noconfirm
 	bootctl --path=/boot install
@@ -25,14 +27,16 @@ if [ "$drivetype" == "UEFI" ]; then
 	linux	/vmlinuz-linux
 	initrd	/initramfs-linux.img
 	options	root=$drive\2 rw" > /mnt/boot/loader/entries/arch.conf
-elif [ "$drivetype" == "BIOS" ]; then
-	mkdir -p /boot/grub/
-	pacman -S grub os-prober --noconfirm
-	grub-install --recheck /dev/sda
-	grub-mkconfig -o /boot/grub/grub.cfg
-else
-	echo "Invalid option selected, please try again."
-	installBootloader
+	
+	elif [ $drivetype = "BIOS" ]; then
+		mkdir -p /boot/grub/
+		pacman -S grub os-prober --noconfirm
+		grub-install --recheck /dev/sda
+		grub-mkconfig -o /boot/grub/grub.cfg
+		
+	else
+		echo "Invalid option selected, please try again."
+		installBootloader
 fi
 }
 
@@ -51,6 +55,3 @@ passwd
 
 # End installation and reboot
 reboot
-
-
-
