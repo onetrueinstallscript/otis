@@ -70,17 +70,17 @@ if [ $drivetype = "UEFI" ]; then
 	mkdir /mnt/boot
 	echo "Creating /home directory on /mnt"
 	mkdir /mnt/home
-	echo "Mounting $drive\1 to /mnt/boot"
+	echo "Mounting $drive/1 to /mnt/boot"
 	mount $drive\1 /mnt/boot
-	echo "Mounting $drive\4 to /mnt/home"
+	echo "Mounting $drive/4 to /mnt/home"
 	mount $drive\4 /mnt/home
 	
 	elif [ $drivetype = "BIOS" ]; then
-		echo "Mounting $drive\1 to /mnt"
+		echo "Mounting $drive/1 to /mnt"
 		mount $drive\1 /mnt
 		echo "Creating /home directory on /mnt"
 		mkdir /mnt/home
-		echo "Mounting $drive\3 to /mnt/home"
+		echo "Mounting $drive/3 to /mnt/home"
 		mount $drive\3 /mnt/home
 		
 	else
