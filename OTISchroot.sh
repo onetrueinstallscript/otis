@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 # Set the time zone
 ln -sf /usr/share/zoneinfo/America/Kentucky/Louisville /etc/localtime

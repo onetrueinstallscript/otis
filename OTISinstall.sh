@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 # Set the keyboard layout
 loadkeys us
@@ -64,23 +65,23 @@ format $drive
 # Mount the file systems
 mount() {
 if [ $drivetype = "UEFI" ]; then
-	echo "Mounting $drive2 to /mnt"
+	echo "Mounting to /mnt (UEFI)"
 	mount $drive\2 /mnt
 	echo "Creating /boot directory on /mnt"
 	mkdir /mnt/boot
 	echo "Creating /home directory on /mnt"
 	mkdir /mnt/home
-	echo "Mounting $drive1 to /mnt/boot"
+	echo "Mounting to /mnt/boot"
 	mount $drive\1 /mnt/boot
-	echo "Mounting $drive4 to /mnt/home"
+	echo "Mounting to /mnt/home"
 	mount $drive\4 /mnt/home
 	
 	elif [ $drivetype = "BIOS" ]; then
-		echo "Mounting $drive1 to /mnt"
+		echo "Mounting to /mnt (BIOS)"
 		mount $drive\/1 /mnt
 		echo "Creating /home directory on /mnt"
 		mkdir /mnt/home
-		echo "Mounting $drive3 to /mnt/home"
+		echo "Mounting to /mnt/home"
 		mount $drive\/3 /mnt/home
 		
 	else
