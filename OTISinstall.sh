@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Set the keyboard layout
 loadkeys us
