@@ -77,11 +77,11 @@ if [ $drivetype = "UEFI" ]; then
 	
 	elif [ $drivetype = "BIOS" ]; then
 		echo "Mounting $drive1 to /mnt"
-		mount $drive\1 /mnt
+		mount $drive\/1 /mnt
 		echo "Creating /home directory on /mnt"
 		mkdir /mnt/home
 		echo "Mounting $drive3 to /mnt/home"
-		mount $drive\3 /mnt/home
+		mount $drive\/3 /mnt/home
 		
 	else
 		echo "Invalid option selected, please try again."
