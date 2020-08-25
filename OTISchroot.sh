@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 
 # Set the time zone
 ln -sf /usr/share/zoneinfo/America/Kentucky/Louisville /etc/localtime
@@ -28,12 +27,14 @@ if [ $drivetype = "UEFI" ]; then
 	linux	/vmlinuz-linux
 	initrd	/initramfs-linux.img
 	options	root=$drive\2 rw" > /mnt/boot/loader/entries/arch.conf
+	break
 	
 	elif [ $drivetype = "BIOS" ]; then
 		mkdir -p /boot/grub/
 		pacman -S grub os-prober --noconfirm
 		grub-install --recheck /dev/sda
 		grub-mkconfig -o /boot/grub/grub.cfg
+		break
 		
 	else
 		echo "Invalid option selected, please try again."
